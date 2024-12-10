@@ -1,4 +1,5 @@
 let todos = []
+let filterValue = 'all'
 
 const taskInputForm = document.querySelector('.todo-input')
 const todoFormHandler = document.querySelector('.todo-form')
@@ -6,7 +7,10 @@ const todoList = document.querySelector('.todo-list')
 const selectFilter = document.querySelector('.filter-todos')
 
 todoFormHandler.addEventListener('submit', addNewTodo)
-selectFilter.addEventListener('change', filterTodos)
+selectFilter.addEventListener('change', e => {
+	filterValue = e.target.value
+	filterTodos()
+})
 function addNewTodo(e) {
 	e.preventDefault()
 	if (!taskInputForm.value) return null
@@ -17,7 +21,7 @@ function addNewTodo(e) {
 		isCompleted: false,
 	}
 	todos.push(newTodo)
-	createTodos(todos)
+	filterTodos()
 }
 function createTodos(todos) {
 	let result = ''
@@ -44,9 +48,8 @@ function createTodos(todos) {
 	const checkBtns = [...document.querySelectorAll('.todo__check')]
 	checkBtns.forEach(btn => btn.addEventListener('click', checkTodo))
 }
-function filterTodos(e) {
-	const filter = e.target.value
-	switch (filter) {
+function filterTodos() {
+	switch (filterValue) {
 		case 'all': {
 			createTodos(todos)
 			break
@@ -68,11 +71,11 @@ function filterTodos(e) {
 function removeTodo(e) {
 	const todoId = Number(e.target.dataset.todoId)
 	todos = todos.filter(t => t.id !== todoId)
-	createTodos(todos)
+	filterTodos()
 }
 function checkTodo(e) {
 	const todoId = Number(e.target.dataset.todoId)
 	const todo = todos.find(t => t.id === todoId)
 	todo.isCompleted = !todo.isCompleted
-	createTodos(todos)
+	filterTodos()
 }

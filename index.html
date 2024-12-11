@@ -20,7 +20,7 @@
 
 	<body>
 		<header>
-			<h1>todo list</h1>
+			<h1>Todo list</h1>
 		</header>
 		<section class="container">
 			<div class="form-container">
@@ -47,6 +47,14 @@
           <button><i class="todo__remove far fa-trash-alt"></i></button>
         </li> -->
 				</ul>
+			</div>
+			<div class="hidden edit-popup">
+				<div class="edit-popup-content">
+					<h2>Edit Todo</h2>
+					<input type="text" class="edit-input" />
+					<button class="save-edit">Save</button>
+					<button class="cancel-edit">Cancel</button>
+				</div>
 			</div>
 		</section>
 		<script src="./index.js"></script>

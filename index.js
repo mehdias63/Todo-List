@@ -1,4 +1,3 @@
-let todos = []
 let filterValue = 'all'
 
 const taskInputForm = document.querySelector('.todo-input')
@@ -11,6 +10,15 @@ selectFilter.addEventListener('change', e => {
 	filterValue = e.target.value
 	filterTodos()
 })
+document.addEventListener('DOMContentLoaded', e => {
+	const todos = getAllTodos()
+	createTodos(todos)
+})
+document.addEventListener('DOMContentLoaded', () => {
+	const editPopup = document.querySelector('.edit-popup')
+	editPopup.classList.add('hidden')
+})
+
 function addNewTodo(e) {
 	e.preventDefault()
 	if (!taskInputForm.value) return null
@@ -20,35 +28,46 @@ function addNewTodo(e) {
 		title: taskInputForm.value,
 		isCompleted: false,
 	}
-	todos.push(newTodo)
+	saveTodo(newTodo)
 	filterTodos()
 }
 function createTodos(todos) {
 	let result = ''
 	todos.forEach(todo => {
 		result += `<li class="todo">
-<p class="todo__title ${todo.isCompleted && 'completed'}">${
-			todo.title
-		}</p>
-<span class="todo__createdAt">${new Date(
-			todo.createdAt,
-		).toLocaleDateString('fa-IR')}</span>
-<button class="todo__check" data-todo-id=${
-			todo.id
-		}><i class="far fa-check-square"></i></button>
-<button class="todo__remove" data-todo-id=${
-			todo.id
-		}><i class="far fa-trash-alt"></i></button></li>`
+            <p class="todo__title ${
+							todo.isCompleted && 'completed'
+						}">${todo.title}</p>
+            <span class="todo__createdAt">${new Date(
+							todo.createdAt,
+						).toLocaleDateString('fa-IR')}</span>
+            <button class="todo__check" data-todo-id=${
+							todo.id
+						}><i class="far fa-check-square"></i></button>
+            <button class="todo__remove" data-todo-id=${
+							todo.id
+						}><i class="far fa-trash-alt"></i></button>
+            <button class="todo__edit" data-todo-id=${
+							todo.id
+						}><i class="fas fa-edit"></i></button>
+        </li>`
 	})
+
 	todoList.innerHTML = result
 	taskInputForm.value = ''
+
 	const removeBtns = [...document.querySelectorAll('.todo__remove')]
 	removeBtns.forEach(btn => btn.addEventListener('click', removeTodo))
 
 	const checkBtns = [...document.querySelectorAll('.todo__check')]
 	checkBtns.forEach(btn => btn.addEventListener('click', checkTodo))
+
+	const editBtns = [...document.querySelectorAll('.todo__edit')]
+	editBtns.forEach(btn => btn.addEventListener('click', editTodo))
 }
+
 function filterTodos() {
+	const todos = getAllTodos()
 	switch (filterValue) {
 		case 'all': {
 			createTodos(todos)
@@ -69,13 +88,60 @@ function filterTodos() {
 	}
 }
 function removeTodo(e) {
+	let todos = getAllTodos()
 	const todoId = Number(e.target.dataset.todoId)
 	todos = todos.filter(t => t.id !== todoId)
+	saveAllTodos(todos)
 	filterTodos()
 }
 function checkTodo(e) {
+	const todos = getAllTodos()
 	const todoId = Number(e.target.dataset.todoId)
 	const todo = todos.find(t => t.id === todoId)
 	todo.isCompleted = !todo.isCompleted
+	saveAllTodos(todos)
 	filterTodos()
+}
+function editTodo(e) {
+	const todos = getAllTodos()
+	const todoId = Number(e.target.closest('button').dataset.todoId)
+	const todo = todos.find(t => t.id === todoId)
+
+	if (!todo) return
+	const editPopup = document.querySelector('.edit-popup')
+	const editInput = document.querySelector('.edit-input')
+	editPopup.classList.remove('hidden')
+	editInput.value = todo.title
+	const saveEditBtn = document.querySelector('.save-edit')
+	saveEditBtn.onclick = () => {
+		const newTitle = editInput.value.trim()
+		if (!newTitle) {
+			alert('Title cannot be empty!')
+			return
+		}
+		todo.title = newTitle
+		saveAllTodos(todos)
+		editPopup.classList.add('hidden')
+		filterTodos()
+	}
+	const cancelEditBtn = document.querySelector('.cancel-edit')
+	cancelEditBtn.onclick = () => {
+		editPopup.classList.add('hidden')
+	}
+}
+
+function getAllTodos() {
+	const savedTodos = JSON.parse(localStorage.getItem('todos')) || []
+	return savedTodos
+}
+
+function saveTodo(todo) {
+	const savedTodos = getAllTodos()
+	savedTodos.push(todo)
+	localStorage.setItem('todos', JSON.stringify(savedTodos))
+	return savedTodos
+}
+
+function saveAllTodos(todos) {
+	localStorage.setItem('todos', JSON.stringify(todos))
 }

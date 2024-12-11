@@ -7,16 +7,21 @@
 
 /*  VARIABLES : */
 :root {
-	--primaryColor: #6d28d9;
-	--secondaryColor: #ede9fe;
-	--mainWhite: #fff;
-	--mainBlack: #222;
-	--mainGrey: #7c7c7c;
-	--lightGrey: #ccc;
+	--primaryColor: #ff6f61; /* تغییر رنگ اصلی به مرجانی */
+	--secondaryColor: #f2e5e2; /* پس‌زمینه روشن‌تر */
+	--mainWhite: #ffffff;
+	--mainBlack: #333333;
+	--mainGrey: #888888;
+	--lightGrey: #eeeeee;
 	--mainSpacing: 0.1rem;
-	--mainTransition: all 0.3s linear;
-	--mainRed: #db2777;
-	--bodyColor: #f6f6f6;
+	--mainTransition: all 0.3s ease-in-out;
+	--mainRed: #ff4b5c; /* قرمز پررنگ */
+	--mainPurple: #6d28d9;
+	--darkBlue: #060963;
+	--mainGreen: #4df210;
+	--bodyColor: #fff7f0; /* تغییر رنگ پس‌زمینه */
+	--buttonHoverColor: #ff8566; /* رنگ هاور دکمه‌ها */
+	--iconHoverColor: #ff9a8d; /* رنگ هاور آیکون‌ها */
 }
 
 body {
@@ -32,6 +37,11 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+header h1 {
+	color: var(--darkBlue);
+	font-size: 3rem;
+	text-shadow: 1px 1px 4px var(--lightGrey);
 }
 
 .container {
@@ -55,28 +65,30 @@ form {
 	justify-content: space-between;
 	border: 2px solid var(--lightGrey);
 	overflow: hidden;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 form input {
 	flex: 1;
 	font-weight: bold;
-}
-
-form input,
-form button {
+	padding: 0.5rem;
 	border: none;
 	outline: none;
-	background-color: none;
 	font-size: 1rem;
-	padding: 0.5rem;
+	color: var(--mainBlack);
 }
-
 form button {
 	color: var(--primaryColor);
+	cursor: pointer;
+	transition: var(--mainTransition);
+	background-color: var(--mainWhite);
+	border: none;
+	font-size: 1.5rem;
+	padding: 0.5rem;
 	cursor: pointer;
 	transition: all 0.3s ease-in-out;
 }
 form button:hover {
-	background-color: var(--primaryColor);
+	background-color: var(--buttonHoverColor);
 	color: var(--mainWhite);
 }
 .todo {
@@ -88,26 +100,42 @@ form button:hover {
 	align-items: center;
 	transition: all 0.3s ease;
 	display: flex;
+	transition: var(--mainTransition);
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.todo-container {
+	margin-top: 1rem;
+	width: 25rem;
+}
+.todo:hover {
+	background-color: var(--secondaryColor);
+	transform: scale(1.02);
 }
 .todo .todo__title {
-	color: var(--primaryColor);
+	color: var(--darkBlue);
 	font-weight: bold;
 	flex: 1;
 }
 
 .todo button {
 	display: block;
-	font-size: 1rem;
+	font-size: 1.2rem;
 	padding: 0.5rem;
 	cursor: pointer;
 	background-color: transparent;
+	transition: var(--mainTransition);
 }
-
+.todo button:hover {
+	color: var(--iconHoverColor);
+}
 .fa-trash-alt {
 	color: var(--mainRed);
 }
 .fa-check-square {
-	color: var(--primaryColor);
+	color: var(--mainGreen);
+}
+.fa-edit {
+	color: var(--mainPurple);
 }
 .completed {
 	text-decoration: line-through;
@@ -150,4 +178,67 @@ button {
 }
 button > i {
 	pointer-events: none;
+}
+.hidden {
+	display: none !important;
+}
+
+.edit-popup {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--mainWhite);
+	width: 30rem;
+	height: auto;
+	border-radius: 1rem;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem;
+	z-index: 30;
+}
+
+.edit-popup-content {
+	width: 80%;
+	text-align: center;
+}
+
+.edit-popup-content h2 {
+	margin-bottom: 2rem;
+	color: var(--darkBlue);
+}
+
+.edit-popup-content input {
+	width: 100%;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	border: 2px solid var(--lightGrey);
+	border-radius: 0.5rem;
+	font-size: 1.2rem;
+	color: var(--mainBlack);
+	background-color: var(--secondaryColor);
+}
+
+.edit-popup-content button {
+	padding: 0.8rem 2rem;
+	margin: 0.5rem;
+	border: none;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: var(--mainTransition);
+}
+.save-edit {
+	background-color: var(--mainPurple);
+	color: var(--mainWhite);
+}
+.save-edit:hover,
+.cancel-edit:hover {
+	opacity: 60%;
+}
+.cancel-edit {
+	background-color: var(--mainRed);
+	color: var(--mainWhite);
 }

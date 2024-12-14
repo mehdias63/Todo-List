@@ -108,9 +108,9 @@ function editTodo(e) {
 	const todo = todos.find(t => t.id === todoId)
 
 	if (!todo) return
-	const editPopup = document.querySelector('.edit-popup')
+	const editModal = document.querySelector('.edit-modal')
 	const editInput = document.querySelector('.edit-input')
-	editPopup.classList.remove('hidden')
+	editModal.classList.remove('hidden')
 	editInput.value = todo.title
 	const saveEditBtn = document.querySelector('.save-edit')
 	saveEditBtn.onclick = () => {
@@ -121,12 +121,12 @@ function editTodo(e) {
 		}
 		todo.title = newTitle
 		saveAllTodos(todos)
-		editPopup.classList.add('hidden')
+		editModal.classList.add('hidden')
 		filterTodos()
 	}
 	const cancelEditBtn = document.querySelector('.cancel-edit')
 	cancelEditBtn.onclick = () => {
-		editPopup.classList.add('hidden')
+		editModal.classList.add('hidden')
 	}
 }
 

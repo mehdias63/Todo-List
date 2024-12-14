@@ -15,23 +15,22 @@
 	src: url('./fonts/Vazirmatn-Regular.woff2') format('woff2');
 }
 
-/*  VARIABLES : */
 :root {
-	--primaryColor: #ff6f61; /* تغییر رنگ اصلی به مرجانی */
-	--secondaryColor: #f2e5e2; /* پس‌زمینه روشن‌تر */
+	--primaryColor: #ff6f61;
+	--secondaryColor: #f2e5e2;
 	--mainWhite: #ffffff;
 	--mainBlack: #333333;
 	--mainGrey: #888888;
 	--lightGrey: #eeeeee;
 	--mainSpacing: 0.1rem;
 	--mainTransition: all 0.3s ease-in-out;
-	--mainRed: #ff4b5c; /* قرمز پررنگ */
+	--mainRed: #ff4b5c;
 	--mainPurple: #6d28d9;
 	--darkBlue: #060963;
 	--mainGreen: #4df210;
-	--bodyColor: #fff7f0; /* تغییر رنگ پس‌زمینه */
-	--buttonHoverColor: #ff8566; /* رنگ هاور دکمه‌ها */
-	--iconHoverColor: #ff9a8d; /* رنگ هاور آیکون‌ها */
+	--bodyColor: #fff7f0;
+	--buttonHoverColor: #ff8566;
+	--iconHoverColor: #ff9a8d;
 }
 
 body {
@@ -123,10 +122,6 @@ form button:hover {
 	margin-top: 1rem;
 	width: 100%;
 }
-.todo:hover {
-	background-color: var(--secondaryColor);
-	transform: scale(1.02);
-}
 .todo .todo__title {
 	font-size: 0.9rem;
 	color: var(--darkBlue);
@@ -179,9 +174,13 @@ select {
 	width: 12rem;
 	position: relative;
 	border: 2px solid var(--lightGrey);
+	font-size: 1rem;
 	font-weight: bold;
 	border-radius: 0.5rem;
 	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .select::after {
 	content: '\25BC';
@@ -204,7 +203,7 @@ button > i {
 	display: none !important;
 }
 
-.edit-popup {
+.edit-modal {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -222,18 +221,18 @@ button > i {
 	z-index: 30;
 }
 
-.edit-popup-content {
+.edit-modal-content {
 	width: 80%;
 	text-align: center;
 }
 
-.edit-popup-content h2 {
+.edit-modal-content h2 {
 	font-size: 1.2rem;
 	margin-bottom: 1rem;
 	color: var(--darkBlue);
 }
 
-.edit-popup-content input {
+.edit-modal-content input {
 	width: 100%;
 	padding: 0.6rem;
 	margin-bottom: 1rem;
@@ -244,7 +243,7 @@ button > i {
 	background-color: var(--secondaryColor);
 }
 
-.edit-popup-content button {
+.edit-modal-content button {
 	font-size: 0.9rem;
 	padding: 0.5rem 1rem;
 	margin: 0.5rem;
@@ -271,11 +270,11 @@ button > i {
 	}
 
 	.container {
-		max-width: 600px; /* افزایش عرض کانتینر */
+		max-width: 600px;
 	}
 
 	form input {
-		font-size: 1rem; /* متن بزرگ‌تر */
+		font-size: 1rem;
 		padding: 0.8rem;
 	}
 
@@ -292,14 +291,14 @@ button > i {
 		max-width: 500px;
 		padding: 1.5rem;
 	}
-	.edit-popup-content h2 {
+	.edit-modal-content h2 {
 		font-size: 1.5rem;
 	}
-	.edit-popup-content input {
+	.edit-modal-content input {
 		font-size: 1rem;
 		padding: 0.8rem;
 	}
-	.edit-popup-content button {
+	.edit-modal-content button {
 		font-size: 1rem;
 		padding: 0.8rem 1.2rem;
 	}
@@ -310,7 +309,7 @@ button > i {
 	}
 
 	.container {
-		max-width: 800px; /* افزایش عرض کانتینر */
+		max-width: 800px;
 	}
 
 	form input {
@@ -323,22 +322,26 @@ button > i {
 		padding: 0.8rem;
 	}
 
+	.select::after {
+		padding: 1.25rem 0.5rem;
+	}
+
 	.todo .todo__title {
 		font-size: 1.2rem;
 	}
 
-	.edit-popup {
+	.edit-modal {
 		max-width: 600px;
 		padding: 2rem;
 	}
-	.edit-popup-content h2 {
+	.edit-modal-content h2 {
 		font-size: 2rem;
 	}
-	.edit-popup-content input {
+	.edit-modal-content input {
 		font-size: 1.2rem;
 		padding: 1rem;
 	}
-	.edit-popup-content button {
+	.edit-modal-content button {
 		font-size: 1.2rem;
 		padding: 1rem 1.5rem;
 	}

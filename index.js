@@ -104,7 +104,7 @@ function checkTodo(e) {
 }
 function editTodo(e) {
 	const todos = getAllTodos()
-	const todoId = Number(e.target.closest('button').dataset.todoId)
+	const todoId = Number(e.target.dataset.todoId)
 	const todo = todos.find(t => t.id === todoId)
 
 	if (!todo) return
